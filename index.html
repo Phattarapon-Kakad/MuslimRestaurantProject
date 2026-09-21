@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Halal Chiang Rai</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&family=Prompt:wght@500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="route.css"><link rel="stylesheet" href="map-polish.css"><link rel="stylesheet" href="ui-finish.css"><link rel="stylesheet" href="layout-cleanup.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"><link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"><link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="visual.css">
+</head>
+<body>
+<main class="shell">
+  <section class="screen active" id="homeScreen"><header class="header"><div class="brand"><b>حلال</b><strong>Halal Chiang Rai</strong></div><button class="icon" data-view="account" aria-label="บัญชี">●</button></header>
+    <div class="search"><span>⌕</span><input id="search" placeholder="ค้นหาร้านอาหาร คาเฟ่ หรือสถานที่" autocomplete="off"></div>
+    <div class="notice" id="locationNotice"><div><b>ค้นหาสถานที่ใกล้คุณ</b><small>ใช้พิกัดชั่วคราว ไม่บันทึกประวัติพิกัด</small></div><button class="primary small" id="allowLocation">อนุญาต</button></div>
+    <div class="chips"><button data-filter="all">ทั้งหมด</button><button class="active" data-filter="restaurant">ร้านอาหาร</button><button data-filter="cafe">คาเฟ่</button><button data-filter="place_of_worship">มัสยิด</button><button data-filter="tourism">ท่องเที่ยว</button></div>
+    <div class="section-title"><h1>ร้านอาหารใกล้คุณ</h1><span id="resultCount"></span></div><p class="section-note">ข้อมูลสถานที่จริงจาก OpenStreetMap · เลือกประเภทอื่นจากตัวกรองด้านบน</p><div class="results" id="results"></div><button class="secondary full" id="loadMore">โหลดเพิ่ม</button>
+  </section>
+  <section class="screen" id="mapScreen"><header class="subheader"><button class="icon" data-view="home">‹</button><div><small>LIVE DISCOVERY</small><h1>แผนที่เชียงราย</h1></div><button class="icon" id="locateMe">⌖</button></header><div class="map-tools"><button class="selected" data-map-filter="food">อาหาร</button><button data-map-filter="all">ทั้งหมด</button><button data-map-filter="worship">มัสยิด</button></div><div class="map-legend"><span><i class="legend-dot food-dot"></i>อาหาร</span><span><i class="legend-dot worship-dot"></i>สถานที่ละหมาด</span><span><i class="legend-dot cluster-dot"></i>กลุ่มสถานที่</span></div><div id="map"></div><div class="route-panel" id="routePanel"><b>เลือกสถานที่บนแผนที่</b><span>เส้นทางจะแสดงในเว็บนี้ ไม่เปิดแอพอื่น</span></div></section>
+  <section class="screen" id="favoritesScreen"><header class="subheader"><div><small>YOUR LIBRARY</small><h1>รายการโปรด</h1></div></header><div id="favorites"></div></section>
+  <section class="screen" id="accountScreen"><header class="subheader"><button class="icon" data-view="home">‹</button><div><small>ACCOUNT</small><h1>บัญชีของฉัน</h1></div></header><div id="accountContent"></div></section>
+  <section class="screen" id="detailScreen"><header class="subheader"><button class="icon" data-view="home">‹</button><button class="secondary small" id="reportButton">รายงาน</button></header><div id="detail"></div></section>
+  <nav class="nav"><button class="active" data-view="home"><span>⌂</span>หน้าแรก</button><button data-view="map"><span>⌖</span>แผนที่</button><button data-view="favorites"><span>♥</span>โปรด</button><button data-view="account"><span>●</span>บัญชี</button></nav>
+</main>
+<div class="toast" id="toast"></div><div class="backdrop" id="backdrop"><div class="modal" id="modal"></div></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script><script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="app.js?v=20260921-mapcluster"></script>
+</body></html>
