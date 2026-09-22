@@ -2,21 +2,18 @@ import { appendFile, readFile } from 'node:fs/promises';
 import { createServer } from 'node:http';
 import { extname, join, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { masterRestaurants } from './data/master-restaurants.js';
+import { cleanVenues } from './src/services/venueFilters.js';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
 const frontendRoot = process.env.NODE_ENV === 'production' ? join(root, 'dist') : root;
 const port = Number(process.env.PORT || 4173);
-const dataPath = join(root, 'data', 'venues.json');
 const accessLogPath = join(root, 'data', 'access.log');
 const mime = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.json': 'application/json; charset=utf-8', '.svg': 'image/svg+xml' };
 
 async function logAccess(req, status, userId = null) {
   const record = JSON.stringify({ timestamp: new Date().toISOString(), clientIp: req.socket.remoteAddress, method: req.method, url: req.url, status, userId }) + '\n';
   await appendFile(accessLogPath, record, { encoding: 'utf8' });
-}
-
-async function venues() {
-  return JSON.parse(await readFile(dataPath, 'utf8'));
 }
 
 function send(res, status, body, type = 'application/json; charset=utf-8') {
@@ -40,9 +37,9 @@ const server = createServer(async (req, res) => {
     if (url.pathname === '/api/venues') {
       const query = (url.searchParams.get('q') || '').trim().toLocaleLowerCase('th-TH');
       const status = url.searchParams.get('status');
-      const all = await venues();
-      const result = all.filter((venue) => (!status || venue.halalStatus === status) && (!query || `${venue.name} ${venue.cuisine} ${venue.address}`.toLocaleLowerCase('th-TH').includes(query)));
-      send(res, 200, { data: result, count: result.length, source: 'OpenStreetMap import; verification status is explicit' });
+      const all = cleanVenues(masterRestaurants);
+      const result = all.filter((venue) => (!status || venue.halalStatus === status) && (!query || `${venue.name} ${venue.cuisine || ''} ${venue.address || ''}`.toLocaleLowerCase('th-TH').includes(query)));
+      send(res, 200, { data: result, count: result.length, source: 'User-provided master list; Google Maps verification status is explicit' });
       await logAccess(req, 200);
       return;
     }

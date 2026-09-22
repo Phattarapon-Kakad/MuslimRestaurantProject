@@ -34,6 +34,8 @@ const venues = payload.elements.map((item) => ({
   importedAt
 })).filter((venue) => venue.latitude !== null
   && venue.longitude !== null
+  && venue.name !== 'Unnamed venue'
+  && venue.name.trim()
   && (venue.category !== 'place_of_worship' || mosquePattern.test(venue.name))
   && !(venue.category === 'place_of_worship'
     && (templePattern.test(venue.name) || christianChurchPattern.test(venue.name)))

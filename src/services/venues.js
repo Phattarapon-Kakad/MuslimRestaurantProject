@@ -1,10 +1,13 @@
+import { cleanVenues } from './venueFilters.js';
+import { masterRestaurants } from '../../data/master-restaurants.js';
+
 export async function fetchVenues() {
   try {
     const response = await fetch('/api/venues');
     if (!response.ok) throw new Error('venues request failed');
-    return (await response.json()).data;
+    return cleanVenues((await response.json()).data);
   } catch {
-    return fetch('/data/venues.json').then((response) => response.json());
+    return cleanVenues(masterRestaurants);
   }
 }
 
