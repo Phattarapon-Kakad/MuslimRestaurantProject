@@ -27,7 +27,7 @@ const venues = payload.elements.map((item) => ({
   website: item.tags?.website || null,
   image: item.tags?.image || item.tags?.['image:url'] || null,
   importedAt
-})).filter((venue) => venue.latitude !== null && venue.longitude !== null);
+})).filter((venue) => venue.latitude !== null && venue.longitude !== null && venue.name !== 'Unnamed venue' && venue.name.trim());
 await mkdir(join(root, 'data'), { recursive: true });
 await writeFile(outputPath, JSON.stringify(venues, null, 2) + '\n');
 console.log(`Imported ${venues.length} Chiang Rai venues from OpenStreetMap.`);

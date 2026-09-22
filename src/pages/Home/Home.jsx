@@ -55,7 +55,7 @@ export default function Home({
         <span>{venues.length.toLocaleString("th-TH")} รายการ</span>
       </div>
       <p className="section-note">
-        ข้อมูลสถานที่จริงจาก OpenStreetMap · เลือกประเภทอื่นจากตัวกรองด้านบน
+        รายการจาก master list · รายการที่ยังไม่มีพิกัดและสถานะจะขึ้นว่า Needs verification
       </p>
       <div className="results">
         {venues.length ? (

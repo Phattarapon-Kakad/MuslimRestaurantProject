@@ -1,1 +1,37 @@
-.root { display: block; }
+.root { display: block; padding-bottom: 18px; background: #f7f5ee; }
+
+.root :global(.subheader) { padding: 4px 2px 12px; }
+.root :global(.subheader > div) { flex: 1; }
+.root :global(.subheader h1) { color: #19352d; }
+.root :global(.map-intro) { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 13px 14px; margin-bottom: 12px; border: 1px solid #e7e1d0; border-radius: 16px; background: #fffdf8; box-shadow: 0 6px 16px rgba(31, 41, 55, .07); }
+.root :global(.map-intro div) { display: grid; gap: 2px; min-width: 0; }
+.root :global(.map-intro span) { color: #64748b; font-size: 11px; }
+.root :global(.map-intro button) { min-height: 40px; padding: 0 10px; border-radius: 10px; background: #d9f2e4; color: #047857; font-size: 12px; font-weight: 700; white-space: nowrap; }
+.root :global(.map-tools) { margin: 0 -2px 9px; padding: 0 2px 3px; overflow-x: auto; }
+.root :global(.map-tools button) { border: 1px solid #e7e1d0; background: #fffdf8; }
+.root :global(.map-tools button.selected) { border-color: #047857; }
+.root :global(.map-legend) { display: flex; gap: 11px; align-items: center; margin: 0 2px 10px; color: #64748b; font-size: 10px; overflow-x: auto; white-space: nowrap; }
+.root :global(.map-legend span) { display: inline-flex; align-items: center; gap: 4px; }
+.root :global(.legend-dot) { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #059669; }
+.root :global(.worship-dot) { background: #d97706; }
+.root :global(.cluster-dot) { background: #475569; }
+.root :global(#map) { height: min(62vh, 620px); min-height: 430px; border: 4px solid #fffdf8; border-radius: 18px; box-shadow: 0 8px 22px rgba(31, 41, 55, .14); }
+.root :global(.route-panel) { display: grid; gap: 2px; margin: 10px 2px 0; padding: 12px 14px; border-left: 4px solid #047857; border-radius: 10px; background: #fffdf8; box-shadow: 0 3px 12px rgba(31, 41, 55, .08); }
+.root :global(.route-panel span) { color: #64748b; font-size: 11px; }
+.root :global(.map-note) { display: grid; gap: 4px; margin: 10px 2px 0; padding: 12px 14px; border: 1px solid #ead9b3; border-radius: 12px; background: #fff8e7; color: #6b4f1d; font-size: 12px; }
+.root :global(.map-note span) { color: #806b43; font-size: 11px; }
+.root :global(.map-note a) { color: #047857; font-weight: 700; text-decoration: none; }
+.root :global(.map-note a:hover), .root :global(.map-note a:focus-visible) { text-decoration: underline; }
+.root :global(.leaflet-popup-content-wrapper) { border-radius: 14px; }
+.root :global(.leaflet-popup-content) { margin: 11px; min-width: 190px; font-family: "Noto Sans Thai", sans-serif; }
+.root :global(.map-popup) { display: grid; gap: 4px; }
+.root :global(.map-popup b) { color: #19352d; font-size: 14px; }
+.root :global(.map-popup small) { color: #64748b; }
+.root :global(.map-popup-image) { width: 100%; height: 82px; object-fit: cover; border-radius: 9px; margin-bottom: 3px; }
+.root :global(.map-popup-actions) { display: flex; gap: 6px; margin-top: 6px; }
+.root :global(.map-popup-actions button) { min-height: 36px; padding: 0 9px; border-radius: 8px; background: #d9f2e4; color: #047857; font-size: 11px; font-weight: 700; }
+
+@media (max-width: 380px) {
+	.root :global(.map-intro) { align-items: flex-start; flex-direction: column; }
+	.root :global(.map-intro button) { width: 100%; }
+}

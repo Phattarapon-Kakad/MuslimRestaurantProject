@@ -9,6 +9,7 @@ import Favorites from "./pages/Favorites/Favorites.jsx";
 import Account from "./pages/Account/Account.jsx";
 import Detail from "./pages/Detail/Detail.jsx";
 import { fetchVenues, getSupabaseConfig } from "./services/venues.js";
+import { isMuslimRelated } from "./services/venueFilters.js";
 import {
   currentAccount,
   favoriteIds,
@@ -60,12 +61,22 @@ export default function App() {
       venues.filter((venue) => {
         const matchesFilter =
           (filter === "nearby" &&
-            ["restaurant", "fast_food"].includes(venue.category)) ||
-          (filter === "open_now" && venue.openNow === true) ||
-          (filter === "cafe" && venue.category === "cafe") ||
+            ["restaurant", "fast_food"].includes(venue.category) &&
+            isMuslimRelated(venue)) ||
+          (filter === "open_now" && venue.openNow === true && isMuslimRelated(venue)) ||
+          (filter === "cafe" && venue.category === "cafe" && isMuslimRelated(venue)) ||
           (filter === "local_food" &&
             ["restaurant", "fast_food"].includes(venue.category) &&
-            Boolean(venue.cuisine));
+            Boolean(venue.cuisine) &&
+            isMuslimRelated(venue)) ||
+          (filter === "all" && isMuslimRelated(venue)) ||
+          (filter === "restaurant" &&
+            ["restaurant", "fast_food"].includes(venue.category) &&
+            isMuslimRelated(venue)) ||
+          (filter === "place_of_worship" && isMuslimRelated(venue)) ||
+          (filter === "tourism" &&
+            ["tourism", "attraction", "viewpoint"].includes(venue.category) &&
+            isMuslimRelated(venue));
         const text =
           `${venue.name || ""} ${venue.address || ""} ${venue.cuisine || ""}`.toLocaleLowerCase(
             "th-TH",

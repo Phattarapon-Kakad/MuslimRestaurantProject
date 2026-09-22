@@ -247,6 +247,18 @@ input:focus-visible {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.venue-map-link {
+  display: inline-block;
+  margin-top: 5px;
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.venue-map-link:hover,
+.venue-map-link:focus-visible {
+  text-decoration: underline;
+}
 .badge {
   display: inline-flex;
   width: max-content;
@@ -382,6 +394,9 @@ input:focus-visible {
 }
 .actions > * {
   flex: 1;
+}
+.detail-map-link {
+  text-align: center;
 }
 .empty {
   padding: 45px 20px;
