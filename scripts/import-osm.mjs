@@ -6,6 +6,11 @@ const root = fileURLToPath(new URL('..', import.meta.url));
 const outputPath = join(root, 'data', 'venues.json');
 const overpassUrl = process.env.OVERPASS_URL || 'https://overpass-api.de/api/interpreter';
 const query = `[out:json][timeout:120];area["ISO3166-2"="TH-57"]->.chiangrai;(nwr[amenity=restaurant](area.chiangrai);nwr[amenity=fast_food](area.chiangrai);nwr[amenity=cafe](area.chiangrai);nwr[tourism](area.chiangrai);nwr[amenity=place_of_worship](area.chiangrai););out center tags;`;
+const templePattern = /วัด|temple|\bwat\b|buddhist|พุทธ|เจดีย์|พระธาตุ/i;
+const christianChurchPattern = /คริสต|คริสตร|คริสต์|โบสถ์|church|christian|catholic|โรมันคาทอลิก|คาทอลิก|โปรเตสแตนต์|protestant/i;
+const buddhistReligiousPattern = /พระ|พุทธ|เจดีย์|พระธาตุ|สำนักสงฆ์|สงฆ์|อาราม|พุทธสถาน|buddh|pagoda|monastery|shrine|ศาลเจ้า|ศาลพระ/i;
+const monumentPattern = /อนุสาวรีย์|อนุสรณ์|อนุสรณ์สถาน|รูปปั้น|statue|monument|memorial|obelisk/i;
+const mosquePattern = /มัสยิด|mosque/i;
 
 const response = await fetch(overpassUrl, { method: 'POST', headers: { 'content-type': 'application/x-www-form-urlencoded', 'user-agent': 'HalalChiangRai/1.0 data-import' }, body: new URLSearchParams({ data: query }) });
 if (!response.ok) throw new Error(`Overpass request failed: ${response.status}`);
@@ -27,7 +32,13 @@ const venues = payload.elements.map((item) => ({
   website: item.tags?.website || null,
   image: item.tags?.image || item.tags?.['image:url'] || null,
   importedAt
-})).filter((venue) => venue.latitude !== null && venue.longitude !== null);
+})).filter((venue) => venue.latitude !== null
+  && venue.longitude !== null
+  && (venue.category !== 'place_of_worship' || mosquePattern.test(venue.name))
+  && !(venue.category === 'place_of_worship'
+    && (templePattern.test(venue.name) || christianChurchPattern.test(venue.name)))
+  && !buddhistReligiousPattern.test(venue.name)
+  && !monumentPattern.test(venue.name));
 await mkdir(join(root, 'data'), { recursive: true });
 await writeFile(outputPath, JSON.stringify(venues, null, 2) + '\n');
 console.log(`Imported ${venues.length} Chiang Rai venues from OpenStreetMap.`);
