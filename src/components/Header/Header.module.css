@@ -1,1 +1,51 @@
-.root { position: relative; }
+.root {
+  height: 78px;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  position: relative;
+
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  color: var(--green);
+  font-family: "Prompt", sans-serif;
+
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.logo {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+}
+
+.brand strong {
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.icon {
+  width: 44px;
+  height: 44px;
+  min-height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--green);
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.icon:hover {
+  background: var(--mint);
+}

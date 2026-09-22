@@ -1,5 +1,26 @@
-import styles from './Header.module.css';
+import styles from "./Header.module.css";
+import logo from "../../assets/logo.svg";
 
 export default function Header({ onAccount }) {
-  return <header className={`${styles.root} header`}><div className="brand"><b>حلال</b><strong>Halal Chiang Rai</strong></div><button className="icon" onClick={onAccount} aria-label="บัญชี">●</button></header>;
+  return (
+    <header className={styles.root}>
+      <div className={styles.brand}>
+        <img
+          src={logo}
+          alt="Halal Nuea Sud logo"
+          className={styles.logo}
+        />
+
+        <strong>Halal Nuea Sud</strong>
+      </div>
+
+      <button
+        className={styles.icon}
+        onClick={onAccount}
+        aria-label="บัญชี"
+      >
+        ●
+      </button>
+    </header>
+  );
 }
