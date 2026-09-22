@@ -29,6 +29,7 @@ body {
   margin: auto;
   padding-bottom: 78px;
   background: var(--sand);
+  overflow-x: clip;
 }
 button,
 input {
@@ -200,6 +201,8 @@ input:focus-visible {
   display: grid;
   gap: 12px;
   margin-top: 12px;
+  min-width: 0;
+  max-width: 100%;
 }
 .venue {
   display: flex;
@@ -211,6 +214,8 @@ input:focus-visible {
   box-shadow: var(--shadow);
   cursor: pointer;
   min-height: 96px;
+  min-width: 0;
+  max-width: 100%;
 }
 .venue-thumb {
   width: 82px;
@@ -407,20 +412,27 @@ input:focus-visible {
 .backdrop {
   display: none;
   position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: min(100%, 480px);
+  transform: translateX(-50%);
   z-index: 50;
-  inset: 0;
-  background: rgba(31, 41, 55, 0.5);
-  align-items: flex-end;
+  background: rgba(0, 0, 0, 0.4);
+  align-items: center;
+  justify-content: center;
 }
 .backdrop.open {
   display: flex;
 }
 .modal {
-  width: min(480px, 100%);
+  position: relative;
+  width: calc(100% - 24px);
+  max-width: 456px;
   max-height: 90vh;
   overflow: auto;
   background: #fff;
-  border-radius: 16px 16px 0 0;
+  border-radius: 16px;
   padding: 22px 18px 30px;
 }
 .modal h2 {

@@ -1,1 +1,125 @@
-.root { display: block; }
+.root {
+	position: relative;
+	height: calc(100dvh + 16px);
+	min-height: 0;
+	margin: -16px 0 0;
+	padding: 0 !important;
+	overflow: hidden;
+	background: var(--sand);
+}
+
+.root :global(#map) {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	height: 100%;
+	min-height: 0;
+	border-radius: 0;
+}
+
+.mapHeader {
+	position: absolute;
+	z-index: 5;
+	top: 18px;
+	right: 16px;
+	left: 16px;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 8px;
+	border-radius: 16px;
+	background: rgba(255, 255, 255, .95);
+	box-shadow: 0 5px 18px rgba(31, 41, 55, .16);
+}
+
+.backButton, .headerAction {
+	display: grid;
+	width: 42px;
+	min-height: 42px;
+	place-items: center;
+	border-radius: 12px;
+	background: var(--mint);
+	color: var(--green);
+	font-size: 28px;
+	line-height: 1;
+}
+
+.headerAction { font-size: 23px; }
+.mapSearch { display: flex; flex: 1; align-items: center; gap: 10px; color: var(--green); }
+.mapSearch span { font-size: 28px; }
+.mapSearch strong { font: 500 16px Prompt, sans-serif; }
+
+.filterBar {
+	position: absolute;
+	z-index: 5;
+	top: 82px;
+	left: 16px;
+	display: flex;
+	gap: 8px;
+}
+
+.filterBar button {
+	min-height: 38px;
+	padding: 0 14px;
+	border-radius: 999px;
+	background: rgba(255, 255, 255, .95);
+	box-shadow: 0 3px 10px rgba(31, 41, 55, .12);
+	color: var(--green);
+	font-size: 12px;
+}
+
+.filterBar .activeFilter { background: var(--green); color: #fff; }
+
+.mapActions {
+	position: absolute;
+	z-index: 5;
+	right: 16px;
+	bottom: 230px;
+	display: grid;
+	gap: 10px;
+}
+
+.mapActions button {
+	width: 46px;
+	min-height: 46px;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, .96);
+	box-shadow: 0 4px 12px rgba(31, 41, 55, .18);
+	color: var(--green);
+	font-size: 23px;
+}
+
+.placeCard {
+	position: absolute;
+	z-index: 6;
+	right: 14px;
+	bottom: 18px;
+	left: 14px;
+	display: grid;
+	grid-template-columns: 84px 1fr;
+	gap: 10px;
+	padding: 12px;
+	border-radius: 18px;
+	background: #fff;
+	box-shadow: 0 7px 24px rgba(31, 41, 55, .22);
+}
+
+.placeImage { width: 84px; height: 84px; display: grid; place-items: center; overflow: hidden; border-radius: 12px; background: var(--mint); font-size: 32px; }
+.placeImage img { width: 100%; height: 100%; object-fit: cover; }
+.placeInfo { min-width: 0; padding-right: 22px; }
+.placeInfo small, .placeInfo p { display: block; margin: 0; color: var(--muted); font-size: 11px; }
+.placeInfo h2 { margin: 1px 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 600 18px Prompt, sans-serif; }
+.placeInfo strong { color: var(--warn); font-size: 12px; }
+.cardFavorite { position: absolute; top: 10px; right: 10px; width: 38px; min-height: 38px; background: transparent; color: var(--danger); font-size: 25px; }
+.placeActions { grid-column: 1 / -1; display: flex; gap: 8px; }
+.placeActions button { flex: 1; min-height: 42px; border-radius: 10px; background: var(--sand2); color: var(--ink); font-size: 12px; font-weight: 600; }
+.placeActions button:last-child { background: var(--green); color: #fff; }
+
+.routePanel { position: absolute; z-index: 7; right: 14px; bottom: 18px; left: 14px; display: grid; gap: 2px; padding: 12px 14px; border-radius: 14px; background: #fff; box-shadow: 0 7px 24px rgba(31, 41, 55, .22); font-size: 13px; }
+.routePanel span { color: var(--muted); font-size: 11px; }
+
+@media (max-width: 360px) {
+	.mapHeader { right: 10px; left: 10px; }
+	.filterBar { left: 10px; }
+	.placeCard { right: 10px; left: 10px; }
+}

@@ -7,12 +7,10 @@
   --visual-shadow: 0 10px 30px rgba(31, 41, 55, 0.09);
 }
 body {
-  background:
-    radial-gradient(circle at 15% 0%, #e7f2f7 0, transparent 30%),
-    var(--visual-white);
+  background: var(--visual-white);
 }
 .shell {
-  background: transparent;
+  background: var(--visual-white);
 }
 .screen {
   padding: 16px 18px 30px;

@@ -49,3 +49,15 @@
 .icon:hover {
   background: var(--mint);
 }
+
+.icon svg {
+  width: 24px;
+  height: 24px;
+  display: block;
+  margin: auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}

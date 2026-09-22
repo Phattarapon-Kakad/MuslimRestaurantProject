@@ -6,6 +6,7 @@ import styles from "./Home.module.css";
 
 export default function Home({
   venues,
+  allVenues = venues,
   filter,
   query,
   onFilter,
@@ -24,16 +25,40 @@ export default function Home({
     cafe: "Cafe",
     local_food: "Local food",
   };
+
+  const foodVenues = allVenues.filter((venue) =>
+    ["restaurant", "fast_food", "cafe"].includes(venue.category),
+  );
+  const budgetVenues = foodVenues.slice(0, 4);
+  const latestVenues = [...foodVenues]
+    .sort(
+      (first, second) =>
+        new Date(second.importedAt || 0) - new Date(first.importedAt || 0),
+    )
+    .slice(0, 4);
+  const renderRail = (items, emptyMessage) =>
+    items.length ? (
+      <div className={styles.cardRail}>
+        {items.map((venue) => (
+          <VenueCard
+            key={venue.id}
+            venue={venue}
+            onOpen={onOpen}
+            onFavorite={onFavorite}
+          />
+        ))}
+      </div>
+    ) : (
+      <p className={styles.empty}>{emptyMessage}</p>
+    );
   
   return (
     <section className={`${styles.root} screen active`}>
-      {/* Header */}
-      <Header onAccount={onAccount} />
+      <div className={styles.stickyHeader}>
+        <Header onAccount={onAccount} />
+        <SearchBar value={query} onChange={onSearch} />
+      </div>
 
-      {/* Search Bar */}
-      <SearchBar value={query} onChange={onSearch} />
-
-      {/* notice */}
       {showLocation && (
         <div className="notice">
           <div>
@@ -45,18 +70,30 @@ export default function Home({
           </button>
         </div>
       )}
-      
-      {/* Chips */}
-      <h3 className={styles.shortcut}>ทางลัดยอดนิยม</h3>
 
+      <h3 className={styles.shortcut}>ทางลัดยอดนิยม</h3>
       <CategoryChips value={filter} onChange={onFilter} />
+
+      <section className={styles.discoverySection}>
+        <div className={styles.sectionHeading}>
+          <h2>แนะนำตามงบ</h2>
+          <button onClick={() => onFilter("restaurant")}>ดูทั้งหมด →</button>
+        </div>
+        {renderRail(budgetVenues, "ยังไม่มีร้านอาหารแนะนำ")}
+      </section>
+
+      <section className={styles.discoverySection}>
+        <div className={styles.sectionHeading}>
+          <h2>ร้านอาหารใหม่ล่าสุด</h2>
+          <button onClick={() => onFilter("restaurant")} aria-label="ดูร้านอาหารใหม่ทั้งหมด">→</button>
+        </div>
+        {renderRail(latestVenues, "ยังไม่มีร้านอาหารใหม่")}
+      </section>
+
       <div className="section-title">
         <h1>{labels[filter] || labels.all}</h1>
         <span>{venues.length.toLocaleString("th-TH")} รายการ</span>
       </div>
-      <p className="section-note">
-        ข้อมูลสถานที่จริงจาก OpenStreetMap · เลือกประเภทอื่นจากตัวกรองด้านบน
-      </p>
       <div className="results">
         {venues.length ? (
           venues

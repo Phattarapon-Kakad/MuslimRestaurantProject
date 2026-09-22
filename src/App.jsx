@@ -209,6 +209,7 @@ export default function App() {
         {view === "home" && (
           <Home
             venues={filtered}
+            allVenues={venues}
             filter={filter}
             query={query}
             onFilter={(value) => {
@@ -234,6 +235,8 @@ export default function App() {
             selected={selected}
             route={route}
             onBack={() => navigate("home")}
+            onOpen={openDetail}
+            onSelect={setSelected}
             onRoute={requestRoute}
             onFavorite={toggleFavorite}
             onToast={showToast}
@@ -251,6 +254,7 @@ export default function App() {
         {view === "account" && (
           <Account
             account={account}
+            onBack={() => navigate("home")}
             onLogin={() => openAuth("login")}
             onRegister={() => openAuth("register")}
             onLogout={() => {
