@@ -4,6 +4,7 @@ import { extname, join, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
+const frontendRoot = process.env.NODE_ENV === 'production' ? join(root, 'dist') : root;
 const port = Number(process.env.PORT || 4173);
 const dataPath = join(root, 'data', 'venues.json');
 const accessLogPath = join(root, 'data', 'access.log');
@@ -47,8 +48,8 @@ const server = createServer(async (req, res) => {
     }
     if (req.method !== 'GET') { send(res, 405, { error: 'Method not allowed' }); await logAccess(req, 405); return; }
     const requested = normalize(url.pathname === '/' ? '/index.html' : url.pathname);
-    const filePath = join(root, requested);
-    if (!filePath.startsWith(root)) { send(res, 403, { error: 'Forbidden' }); await logAccess(req, 403); return; }
+    const filePath = join(frontendRoot, requested);
+    if (!filePath.startsWith(frontendRoot)) { send(res, 403, { error: 'Forbidden' }); await logAccess(req, 403); return; }
     const body = await readFile(filePath);
     const type = mime[extname(filePath)] || 'application/octet-stream';
     res.writeHead(200, { 'Content-Type': type, 'Cache-Control': 'no-store' });

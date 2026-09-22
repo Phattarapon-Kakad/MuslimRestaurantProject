@@ -1,0 +1,5 @@
+import styles from './Modal.module.css';
+
+export default function Modal({ children, onClose }) {
+  return <div className={`${styles.root} backdrop open`} onMouseDown={(event) => event.target === event.currentTarget && onClose()}><div className="modal">{children}</div></div>;
+}

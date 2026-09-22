@@ -4,12 +4,35 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "dev:frontend": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0",
     "dev": "node --env-file=.env server.mjs",
-    "start": "NODE_ENV=production node --env-file=.env server.mjs",
+    "start": "npm run build && NODE_ENV=production node --env-file=.env server.mjs",
     "import:osm": "node scripts/import-osm.mjs",
     "check": "node --check server.mjs && node --check scripts/import-osm.mjs && node --check app.js"
   },
+  "dependencies": {
+    "leaflet": "^1.9.4",
+    "leaflet.markercluster": "^1.5.3",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.0.4",
+    "vite": "^7.1.7"
+  },
   "engines": {
     "node": ">=20"
+  },
+  "dependencies": {
+    "leaflet": "^1.9.4",
+    "leaflet.markercluster": "^1.5.3",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.1.1",
+    "vite": "^8.3.0"
   }
 }

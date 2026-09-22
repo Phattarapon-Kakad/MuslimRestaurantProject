@@ -1,0 +1,44 @@
+.bottomNav {
+  position: fixed;
+  z-index: 20;
+  right: 50%;
+  bottom: 0;
+  display: flex;
+  width: min(100%, 480px);
+  min-height: 64px;
+  transform: translateX(50%);
+  padding: 6px 8px max(6px, env(safe-area-inset-bottom));
+  border-top: 1px solid var(--line, #f2e8c8);
+  background: rgba(255, 255, 255, .96);
+  box-shadow: 0 -4px 18px rgba(31, 41, 55, .1);
+  backdrop-filter: blur(10px);
+}
+
+.bottomNav button {
+  display: grid;
+  flex: 1;
+  place-items: center;
+  gap: 1px;
+  min-height: 52px;
+  padding: 4px 2px;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--muted, #64748b);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.bottomNav button span {
+  color: var(--green, #047857);
+  font-size: 20px;
+  line-height: 1;
+}
+
+.bottomNav button.active {
+  background: var(--mint, #d9f2e4);
+  color: var(--green, #047857);
+}
+
+.bottomNav button:hover {
+  background: var(--mint, #d9f2e4);
+}
