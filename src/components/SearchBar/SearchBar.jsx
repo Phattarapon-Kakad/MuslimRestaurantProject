@@ -2,7 +2,7 @@ import styles from "./SearchBar.module.css";
 
 export default function SearchBar({ value, onChange }) {
   return (
-    <label className={`${styles.root} search`}>
+    <label className={styles.search}>
       <span>⌕</span>
       <input
         value={value}

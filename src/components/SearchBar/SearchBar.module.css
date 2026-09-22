@@ -1,3 +1,35 @@
 .root {
   display: flex;
 }
+
+.search {
+  height: 53px;
+  margin: 8px 8px 16px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 999px;
+  background: #E1F3DA;
+  box-shadow: 0 4px 6px rgba(16, 24, 40, 0.1);
+  font-size: 25px;
+}
+
+.search input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-size: 14px;
+}
+
+.search input::placeholder {
+  color: #178754;
+  font-size: 14px;
+}
+
+.search span {
+  margin-left: 10px;
+  font-size: 40px;
+  color: #178754;
+}

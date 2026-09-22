@@ -29,6 +29,7 @@ export default function Home({
     <section className={`${styles.root} screen active`}>
       <Header onAccount={onAccount} />
       <SearchBar value={query} onChange={onSearch} />
+      <h3 className={styles.shortcut}>ทางลัดยอดนิยม</h3>
       {showLocation && (
         <div className="notice">
           <div>
