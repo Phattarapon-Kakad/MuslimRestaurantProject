@@ -32,7 +32,7 @@ const hash = async (value) => {
 export default function App() {
   const [view, setView] = useState("home");
   const [venues, setVenues] = useState([]);
-  const [filter, setFilter] = useState("restaurant");
+  const [filter, setFilter] = useState("nearby");
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(40);
   const [account, setAccount] = useState(currentAccount());
@@ -59,10 +59,13 @@ export default function App() {
     () =>
       venues.filter((venue) => {
         const matchesFilter =
-          filter === "all" ||
-          venue.category === filter ||
-          (filter === "restaurant" &&
-            ["restaurant", "fast_food"].includes(venue.category));
+          (filter === "nearby" &&
+            ["restaurant", "fast_food"].includes(venue.category)) ||
+          (filter === "open_now" && venue.openNow === true) ||
+          (filter === "cafe" && venue.category === "cafe") ||
+          (filter === "local_food" &&
+            ["restaurant", "fast_food"].includes(venue.category) &&
+            Boolean(venue.cuisine));
         const text =
           `${venue.name || ""} ${venue.address || ""} ${venue.cuisine || ""}`.toLocaleLowerCase(
             "th-TH",

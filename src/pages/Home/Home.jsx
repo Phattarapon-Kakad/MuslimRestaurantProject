@@ -19,17 +19,21 @@ export default function Home({
   onAccount,
 }) {
   const labels = {
-    restaurant: "ร้านอาหารใกล้คุณ",
-    cafe: "คาเฟ่ในเชียงราย",
-    place_of_worship: "มัสยิดและที่ละหมาด",
-    tourism: "สถานที่ท่องเที่ยว",
-    all: "สถานที่ในเชียงราย",
+    nearby: "ร้านใกล้ฉัน",
+    open_now: "open now",
+    cafe: "Cafe",
+    local_food: "Local food",
   };
+  
   return (
     <section className={`${styles.root} screen active`}>
+      {/* Header */}
       <Header onAccount={onAccount} />
+
+      {/* Search Bar */}
       <SearchBar value={query} onChange={onSearch} />
-      <h3 className={styles.shortcut}>ทางลัดยอดนิยม</h3>
+
+      {/* notice */}
       {showLocation && (
         <div className="notice">
           <div>
@@ -41,6 +45,10 @@ export default function Home({
           </button>
         </div>
       )}
+      
+      {/* Chips */}
+      <h3 className={styles.shortcut}>ทางลัดยอดนิยม</h3>
+
       <CategoryChips value={filter} onChange={onFilter} />
       <div className="section-title">
         <h1>{labels[filter] || labels.all}</h1>
