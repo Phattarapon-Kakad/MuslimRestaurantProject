@@ -31,6 +31,17 @@ Backlog-to-spec mapping (single primary functional mapping per story):
 | US12 | F12 | NFR01, NFR06 | LR05, LR10, LR12 |
 | US13 | F13 | NFR01, NFR03, NFR06 | LR10, LR13 |
 
+### MoSCoW Prioritization (Phase 1)
+
+Priorities are relative to the first release and the Golden Thread: **Search & View Halal Restaurant Detail**. "Won't" means deferred from Phase 1, not permanently rejected.
+
+| Priority | Stories | Rationale |
+|---|---|---|
+| **Must** | US01, US02, US03, US04, US06, US07 | Delivers the core discovery, search, restaurant-detail, halal classification, and verification workflow. Without these stories, users cannot reliably find and assess a venue. |
+| **Should** | US08, US09, US12, US13 | Adds prayer-facility discovery, saved places, merchant-maintained data, and issue reporting. These materially improve usefulness and data quality but do not block the core happy path. |
+| **Could** | US05, US11 | Recommendations and community reviews improve personalization and trust, but the first release can operate with explicit filters, verified provenance, and administrator-managed data. |
+| **Won't** | US10 | Multi-stop trip planning is valuable for a later release but is outside the first-release restaurant discovery workflow and requires additional route-planning complexity. |
+
 ### Epic 1: Discovery, Map & Location
 - **US01 [Core] — Halal Map & Nearby Venues**
   - *Story:* As a Muslim User, I want to explore an interactive map displaying nearby halal eateries, mosques, and Muslim-friendly venues based on my current location, so that I can quickly reach verified dining spots.
