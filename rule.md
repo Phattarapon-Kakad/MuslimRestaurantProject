@@ -1,6 +1,4 @@
 # MuslimRestaurantProj — Legal & Compliance Rules (rule.md)
-**Author(s):** [Insert Student Names / IDs]  
-**Company:** [Insert Team / Company Name]  
 Read this before writing any code that touches user data or user actions.
 
 ## PDPA (Personal Data Protection Act)
