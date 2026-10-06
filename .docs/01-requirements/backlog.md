@@ -11,6 +11,26 @@
 
 ## User Stories & Backlog Items
 
+### Specification Traceability
+
+Backlog-to-spec mapping (single primary functional mapping per story):
+
+| Story | Functional Mapping | Related NFR | Related LR |
+|---|---|---|---|
+| US01 [Core] | F01 [Core] | NFR01, NFR02, NFR03, NFR04, NFR05 | LR01, LR02, LR06 |
+| US02 | F02 | NFR01, NFR02, NFR04 | LR01 |
+| US03 | F03 | NFR01, NFR02, NFR04 | LR01 |
+| US04 | F04 | NFR01, NFR03 | LR11 |
+| US05 | F05 | NFR01, NFR04 | LR01 |
+| US06 [Core] | F06 [Core] | NFR01, NFR02, NFR03, NFR04 | LR11 |
+| US07 | F07 | NFR01, NFR03 | LR11, LR12, LR13 |
+| US08 | F08 | NFR01, NFR02, NFR04 | LR01 |
+| US09 | F09 | NFR01, NFR02, NFR06 | LR03, LR04, LR05 |
+| US10 | F10 | NFR01, NFR02, NFR04 | LR01 |
+| US11 | F11 | NFR01, NFR02, NFR03, NFR06 | LR03, LR04, LR05, LR14 |
+| US12 | F12 | NFR01, NFR06 | LR05, LR10, LR12 |
+| US13 | F13 | NFR01, NFR03, NFR06 | LR10, LR13 |
+
 ### Epic 1: Discovery, Map & Location
 - **US01 [Core] — Halal Map & Nearby Venues**
   - *Story:* As a Muslim User, I want to explore an interactive map displaying nearby halal eateries, mosques, and Muslim-friendly venues based on my current location, so that I can quickly reach verified dining spots.
@@ -76,7 +96,7 @@
     - Synchronizes saved items to a personal Bookmark Library under the user profile.
 
 - **US10 — Halal Trip Planner**
-  - *Story:* As a Muslim Tourist, I want to aggregate multiple restaurants, viewpoints, and mosques into a unified multi-stop itinerary, so that I can optimize travel routes across Chiang Rai.
+  - *Story:* As a Muslim User, I want to aggregate multiple restaurants, viewpoints, and mosques into a unified multi-stop itinerary, so that I can optimize travel routes across Chiang Rai.
   - *Acceptance Criteria:*
     - Supports adding multiple distinct venue pins into a sequenced itinerary.
     - Calculates total travel route and distance across all stops.
