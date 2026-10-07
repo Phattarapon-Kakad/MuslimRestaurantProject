@@ -12,6 +12,16 @@ const categories = [
     icon: nearbyIcon,
   },
   {
+    id: "near_mfu",
+    label: "ใกล้ MFU",
+    icon: nearbyIcon,
+  },
+  {
+    id: "halal",
+    label: "ฮาลาล",
+    icon: foodIcon,
+  },
+  {
     id: "open_now",
     label: "Open Now",
     icon: timeIcon,

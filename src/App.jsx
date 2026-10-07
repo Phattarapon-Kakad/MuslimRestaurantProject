@@ -29,6 +29,20 @@ const hash = async (value) => {
   return btoa(value);
 };
 
+const defaultOrigin = [19.9072, 99.8309];
+const distanceKm = (first, second) => {
+  if (!first?.latitude || !first?.longitude) return Number.POSITIVE_INFINITY;
+  const toRadians = (value) => (value * Math.PI) / 180;
+  const latitudeDelta = toRadians(first.latitude - second[0]);
+  const longitudeDelta = toRadians(first.longitude - second[1]);
+  const latitude = toRadians(first.latitude);
+  const originLatitude = toRadians(second[0]);
+  const a =
+    Math.sin(latitudeDelta / 2) ** 2 +
+    Math.sin(longitudeDelta / 2) ** 2 * Math.cos(latitude) * Math.cos(originLatitude);
+  return 6371 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+};
+
 export default function App() {
   const [view, setView] = useState("home");
   const [venues, setVenues] = useState([]);
@@ -40,6 +54,7 @@ export default function App() {
   const [modal, setModal] = useState(null);
   const [toastMessage, setToastMessage] = useState("");
   const [route, setRoute] = useState(null);
+  const [origin, setOrigin] = useState(defaultOrigin);
   const [locationVisible, setLocationVisible] = useState(
     !localStorage.getItem("halal-location-consent"),
   );
@@ -50,6 +65,14 @@ export default function App() {
       .catch(() => showToast("โหลดข้อมูลไม่สำเร็จ"));
   }, []);
   useEffect(() => {
+    if (!localStorage.getItem("halal-location-consent") || !navigator.geolocation) return;
+    navigator.geolocation.getCurrentPosition(
+      (position) => setOrigin([position.coords.latitude, position.coords.longitude]),
+      () => undefined,
+      { enableHighAccuracy: false, timeout: 5000, maximumAge: 300000 },
+    );
+  }, []);
+  useEffect(() => {
     if (!toastMessage) return undefined;
     const timer = setTimeout(() => setToastMessage(""), 2500);
     return () => clearTimeout(timer);
@@ -57,25 +80,29 @@ export default function App() {
   const showToast = (message) => setToastMessage(message);
   const filtered = useMemo(
     () =>
-      venues.filter((venue) => {
+      venues
+        .filter((venue) => {
+        const isFood = ["restaurant", "fast_food", "cafe"].includes(venue.category);
+        const areaText = `${venue.area || ""} ${venue.district || ""} ${venue.address || ""}`.toLocaleLowerCase("th-TH");
+        const halalText = `${venue.halalStatus || ""} ${venue.cuisine || ""}`.toLocaleLowerCase("th-TH");
         const matchesFilter =
-          (filter === "nearby" &&
-            ["restaurant", "fast_food"].includes(venue.category)) ||
+          (filter === "nearby" && ["restaurant", "fast_food"].includes(venue.category)) ||
+          (filter === "near_mfu" && isFood && (areaText.includes("mfu") || areaText.includes("แม่ฟ้าหลวง") || areaText.includes("mae fah luang"))) ||
+          (filter === "halal" && isFood && (halalText.includes("halal") || halalText.includes("ฮาลาล") || venue.verified === true)) ||
+          (filter === "restaurant" && ["restaurant", "fast_food"].includes(venue.category)) ||
           (filter === "open_now" && venue.openNow === true) ||
           (filter === "cafe" && venue.category === "cafe") ||
-          (filter === "local_food" &&
-            ["restaurant", "fast_food"].includes(venue.category) &&
-            Boolean(venue.cuisine));
+          (filter === "local_food" && ["restaurant", "fast_food"].includes(venue.category) && Boolean(venue.cuisine));
         const text =
           `${venue.name || ""} ${venue.address || ""} ${venue.cuisine || ""}`.toLocaleLowerCase(
             "th-TH",
           );
-        return (
-          matchesFilter &&
-          text.includes(query.trim().toLocaleLowerCase("th-TH"))
-        );
-      }),
-    [venues, filter, query],
+        const matchesSearch = !query.trim() || text.includes(query.trim().toLocaleLowerCase("th-TH"));
+          const hasUsableName = venue.name && !/^unnamed|ไม่ระบุ/i.test(venue.name.trim());
+          return hasUsableName && (query.trim() ? true : matchesFilter) && matchesSearch;
+        })
+        .sort((first, second) => distanceKm(first, origin) - distanceKm(second, origin)),
+    [venues, filter, query, origin],
   );
   const navigate = (next) => {
     setView(next);
@@ -142,6 +169,7 @@ export default function App() {
   const allowLocation = () =>
     navigator.geolocation?.getCurrentPosition(
       (position) => {
+        setOrigin([position.coords.latitude, position.coords.longitude]);
         localStorage.setItem(
           "halal-location-consent",
           new Date().toISOString(),
@@ -215,6 +243,16 @@ export default function App() {
             onFilter={(value) => {
               setFilter(value);
               setPage(40);
+              if (value === "nearby" && navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                  (position) => {
+                    setOrigin([position.coords.latitude, position.coords.longitude]);
+                    setLocationVisible(false);
+                  },
+                  () => showToast("ไม่สามารถอ่านตำแหน่งได้ ใช้ใจกลางเชียงรายเป็นจุดเริ่มต้น"),
+                  { enableHighAccuracy: false, timeout: 5000, maximumAge: 300000 },
+                );
+              }
             }}
             onSearch={(value) => {
               setQuery(value);
@@ -233,6 +271,7 @@ export default function App() {
           <MapPage
             venues={venues}
             selected={selected}
+            origin={origin}
             route={route}
             onBack={() => navigate("home")}
             onOpen={openDetail}

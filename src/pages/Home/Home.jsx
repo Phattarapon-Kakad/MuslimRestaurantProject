@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import Header from "../../components/Header/Header.jsx";
 import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import CategoryChips from "../../components/CategoryChips/CategoryChips.jsx";
@@ -19,8 +20,11 @@ export default function Home({
   onAllowLocation,
   onAccount,
 }) {
+  const resultsRef = useRef(null);
   const labels = {
     nearby: "ร้านใกล้ฉัน",
+    near_mfu: "ร้านใกล้ MFU",
+    halal: "ร้านฮาลาล",
     open_now: "open now",
     cafe: "Cafe",
     local_food: "Local food",
@@ -51,6 +55,18 @@ export default function Home({
     ) : (
       <p className={styles.empty}>{emptyMessage}</p>
     );
+  const isSearching = query.trim().length > 0;
+  const handleFilterChange = (value) => {
+    onFilter(value);
+    requestAnimationFrame(() => {
+      resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  };
+
+  useEffect(() => {
+    if (isSearching || filter === "nearby") return;
+    resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [filter, isSearching]);
   
   return (
     <section className={`${styles.root} screen active`}>
@@ -59,6 +75,22 @@ export default function Home({
         <SearchBar value={query} onChange={onSearch} />
       </div>
 
+      {isSearching && (
+        <section className={styles.searchResults} aria-live="polite">
+          <div className="section-title">
+            <h1>ผลการค้นหา</h1>
+            <span>{venues.length.toLocaleString("th-TH")} รายการ</span>
+          </div>
+          <div className="results">
+            {venues.length ? venues.slice(0, page).map((venue) => (
+              <VenueCard key={venue.id} venue={venue} onOpen={onOpen} onFavorite={onFavorite} />
+            )) : <div className="empty">ไม่พบสถานที่ตามคำค้น</div>}
+          </div>
+          {page < venues.length && <button className="secondary full" onClick={onMore}>โหลดเพิ่ม</button>}
+        </section>
+      )}
+
+      {!isSearching && <>
       {showLocation && (
         <div className="notice">
           <div>
@@ -72,7 +104,7 @@ export default function Home({
       )}
 
       <h3 className={styles.shortcut}>ทางลัดยอดนิยม</h3>
-      <CategoryChips value={filter} onChange={onFilter} />
+      <CategoryChips value={filter} onChange={handleFilterChange} />
 
       <section className={styles.discoverySection}>
         <div className={styles.sectionHeading}>
@@ -90,7 +122,7 @@ export default function Home({
         {renderRail(latestVenues, "ยังไม่มีร้านอาหารใหม่")}
       </section>
 
-      <div className="section-title">
+      <div ref={resultsRef} className="section-title">
         <h1>{labels[filter] || labels.all}</h1>
         <span>{venues.length.toLocaleString("th-TH")} รายการ</span>
       </div>
@@ -115,6 +147,7 @@ export default function Home({
           โหลดเพิ่ม
         </button>
       )}
+      </>}
     </section>
   );
 }

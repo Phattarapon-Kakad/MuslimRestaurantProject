@@ -2,6 +2,7 @@ import { appendFile, readFile } from 'node:fs/promises';
 import { createServer } from 'node:http';
 import { extname, join, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import additionalRestaurants from './src/data/additionalRestaurants.js';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
 const frontendRoot = process.env.NODE_ENV === 'production' ? join(root, 'dist') : root;
@@ -16,7 +17,8 @@ async function logAccess(req, status, userId = null) {
 }
 
 async function venues() {
-  return JSON.parse(await readFile(dataPath, 'utf8'));
+  return [...JSON.parse(await readFile(dataPath, 'utf8')), ...additionalRestaurants]
+    .filter((venue) => venue.name && !/^unnamed|ไม่ระบุ/i.test(venue.name.trim()));
 }
 
 function send(res, status, body, type = 'application/json; charset=utf-8') {

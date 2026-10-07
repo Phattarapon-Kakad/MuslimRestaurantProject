@@ -24,6 +24,10 @@
   margin-top: 12px;
 }
 
+.searchResults {
+  margin-top: 18px;
+}
+
 .sectionHeading {
   display: flex;
   align-items: center;
