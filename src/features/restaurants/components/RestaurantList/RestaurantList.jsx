@@ -1,6 +1,8 @@
 import { Search as SearchIcon } from "lucide-react";
 
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard from "../RestaurantCard/RestaurantCard";
+
+import "./RestaurantList.css";
 
 export default function RestaurantList({
   restaurants,

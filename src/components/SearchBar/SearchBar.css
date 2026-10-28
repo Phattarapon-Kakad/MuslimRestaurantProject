@@ -1,0 +1,5 @@
+.search-bar { display: flex; align-items: center; gap: 8px; min-height: 54px; padding: 4px 5px 4px 15px; border: 1px solid var(--sand-200); border-radius: var(--radius-full); background: var(--surface-0); box-shadow: var(--shadow-2); }
+.search-bar > svg { flex-shrink: 0; color: var(--ink-600); }
+.search-bar input { width: 100%; min-width: 0; height: 42px; border: 0; outline: 0; background: transparent; color: var(--ink-800); font-size: 14px; }
+.search-bar input::placeholder { color: var(--ink-400); }
+.search-submit { min-width: 64px; min-height: 44px; padding: 8px 12px; border: 0; border-radius: var(--radius-full); background: var(--emerald-700); color: var(--surface-0); font-size: 13px; font-weight: 600; }

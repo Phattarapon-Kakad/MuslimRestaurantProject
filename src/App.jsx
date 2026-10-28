@@ -3,13 +3,13 @@ import { Leaf, MapPin } from "lucide-react";
 
 import { cuisineTypes, restaurants, zones } from "./features/restaurants/data/restaurants";
 import { recommendRestaurants } from "./features/restaurants/utils/recommend";
-import BottomNav from "./components/BottomNav";
-import AboutPage from "./pages/AboutPage";
-import FavoritesPage from "./pages/FavoritesPage";
-import HomePage from "./pages/HomePage";
-import RestaurantDetail from "./features/restaurants/components/RestaurantDetail";
-import RestaurantList from "./features/restaurants/components/RestaurantList";
-import SearchPage from "./pages/SearchPage";
+import BottomNav from "./components/BottomNav/BottomNav";
+import AboutPage from "./pages/About/AboutPage";
+import FavoritesPage from "./pages/Favorites/FavoritesPage";
+import HomePage from "./pages/Home/HomePage";
+import RestaurantDetail from "./features/restaurants/components/RestaurantDetail/RestaurantDetail";
+import RestaurantList from "./features/restaurants/components/RestaurantList/RestaurantList";
+import SearchPage from "./pages/Search/SearchPage";
 
 const DEFAULT_FILTERS = { zone: "ALL", cuisine: "ทั้งหมด", budget: 300 };
 

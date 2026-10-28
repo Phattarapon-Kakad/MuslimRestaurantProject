@@ -1,0 +1,21 @@
+.modal-backdrop { position: fixed; inset: 0; z-index: 30; display: flex; align-items: flex-end; justify-content: center; padding: 0; background: rgba(11, 20, 32, 0.6); }
+.detail-modal { width: 100%; max-width: 480px; max-height: 92dvh; overflow-y: auto; padding-bottom: env(safe-area-inset-bottom); border-radius: 20px 20px 0 0; background: var(--surface-0); box-shadow: 0 6px 24px rgba(16, 24, 40, 0.2); animation: sheet-in 180ms ease-out; }
+.detail-header { display: flex; align-items: center; justify-content: space-between; min-height: 56px; padding: 8px 16px; }
+.detail-image { height: 190px; overflow: hidden; background: var(--sand-100); }
+.detail-image img { width: 100%; height: 100%; object-fit: cover; }
+.detail-body { padding: 20px 16px 24px; }
+.detail-body h2 { margin: 12px 0 8px; font-size: 24px; line-height: 1.35; font-weight: 600; }
+.detail-description { color: var(--ink-600); line-height: 1.75; }
+.detail-info-row { display: flex; align-items: flex-start; gap: 10px; margin-top: 12px; color: var(--ink-600); font-size: 14px; }
+.detail-info-row svg { flex-shrink: 0; color: var(--emerald-700); }
+.detail-section { margin-top: 24px; }
+.detail-section h3 { margin: 0 0 12px; font-size: 18px; font-weight: 600; }
+.menu-list { margin: 0; padding: 0; list-style: none; }
+.menu-list li { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; border-bottom: 1px solid var(--sand-200); }
+.menu-list strong { flex-shrink: 0; color: var(--emerald-700); font-variant-numeric: tabular-nums; }
+.amenity-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.amenity-chip { display: inline-flex; align-items: center; min-height: 36px; padding: 7px 12px; border-radius: var(--radius-full); background: var(--pastel-sky); color: var(--ink-800); font-size: 12px; }
+.detail-actions { display: grid; grid-template-columns: 1fr 1.2fr; gap: 10px; margin-top: 24px; }
+.detail-actions button { min-height: 52px; }
+.detail-footnote { justify-content: center; margin: 12px 0 0; color: var(--ink-600); font-size: 12px; }
+.detail-footnote { display: inline-flex; align-items: center; gap: 5px; }

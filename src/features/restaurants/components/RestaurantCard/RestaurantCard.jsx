@@ -5,6 +5,8 @@ import {
   Utensils
 } from "lucide-react";
 
+import "./RestaurantCard.css";
+
 function StatusBadge({ restaurant }) {
   if (restaurant.halalStatus === "certified" && restaurant.verified) {
     return (

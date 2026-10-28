@@ -5,6 +5,8 @@ import {
   Info
 } from "lucide-react";
 
+import "./BottomNav.css";
+
 const navItems = [
   { id: "home", label: "หน้าหลัก", icon: House },
   { id: "search", label: "ค้นหาร้าน", icon: Search },

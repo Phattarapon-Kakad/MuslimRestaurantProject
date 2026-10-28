@@ -1,5 +1,7 @@
 import { ShieldCheck, Utensils } from "lucide-react";
 
+import "./AboutPage.css";
+
 export default function InfoView() {
   return (
     <section className="page-section">

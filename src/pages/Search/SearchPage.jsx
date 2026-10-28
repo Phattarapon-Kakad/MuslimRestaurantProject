@@ -1,6 +1,8 @@
 import { SlidersHorizontal } from "lucide-react";
 
-import SearchBar from "../components/SearchBar";
+import SearchBar from "../../components/SearchBar/SearchBar";
+
+import "./SearchPage.css";
 
 export default function SearchView({
   query,

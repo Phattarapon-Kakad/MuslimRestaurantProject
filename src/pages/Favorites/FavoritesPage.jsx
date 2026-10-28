@@ -1,4 +1,6 @@
-import RestaurantList from "../features/restaurants/components/RestaurantList";
+import RestaurantList from "../../features/restaurants/components/RestaurantList/RestaurantList";
+
+import "./FavoritesPage.css";
 
 export default function FavoritesPage({
   restaurants,
